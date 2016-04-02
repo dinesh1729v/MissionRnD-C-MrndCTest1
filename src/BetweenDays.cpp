@@ -42,7 +42,7 @@ int isValid(int d,int m,int y)
 }
 int getDays(int d, int m, int y)
 {
-	int month[] = { 31, 0, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 }, leap = 0,days=365,i;
+	int month[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 }, leap = 0,days=365,i;
 	if (y % 4 == 0)
 	{
 		days = 366;
@@ -55,9 +55,14 @@ int getDays(int d, int m, int y)
 	}
 	for (i = 0; i < m - 1; i++)
 		days -= month[i];
-	days -= (d - 1);
-	return days;
+	days -= (d );
+	return (days-1);
 
+}
+int abs(int n)
+{
+	if (n < 0)return (-1 * n);
+	return n;
 }
 int between_days(struct node *date1head, struct node *date2head){
 	if (date1head == NULL || date2head == NULL)return -1;
@@ -79,9 +84,9 @@ int between_days(struct node *date1head, struct node *date2head){
 		else if (cnt >= 4 && cnt <= 7)y2 = y2 * 10 + date2head->data;
 		date2head = date2head->next;
 	}
-	if (isValid(d1, m1, y1) && isValid(d2, m2, y2))return -1;
+	if (!isValid(d1, m1, y1) || isValid(d2, m2, y2))return -1;
 	days1 = getDays(d1, m1, y1);
 	days2 = getDays(d2, m2, y2);
-	if ((days2 - days1) < 0)return days1 - days2;
-	return days2 - days1;
+	int ans = abs(days2 - days1);
+	return (ans+1);
 }
