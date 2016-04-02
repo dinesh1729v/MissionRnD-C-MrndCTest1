@@ -68,13 +68,16 @@ int between_days(struct node *date1head, struct node *date2head){
 		if (cnt >= 0 && cnt <= 1)d1 = d1 * 10 + date1head->data;
 		else if (cnt >= 2 && cnt <= 3)m1 = m1 * 10 + date1head->data;
 		else if (cnt >= 4 && cnt <= 7)y1 = y1 * 10 + date1head->data;
+		date1head = date1head->next;
 	}
+
 	cnt = 0;
 	while (date2head != NULL)
 	{
 		if (cnt >= 0 && cnt <= 1)d2 = d2 * 10 + date2head->data;
 		else if (cnt >= 2 && cnt <= 3)m2 = m2 * 10 + date2head->data;
 		else if (cnt >= 4 && cnt <= 7)y2 = y2 * 10 + date2head->data;
+		date2head = date2head->next;
 	}
 	if (isValid(d1, m1, y1) && isValid(d2, m2, y2))return -1;
 	days1 = getDays(d1, m1, y1);
