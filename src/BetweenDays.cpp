@@ -42,7 +42,7 @@ int isValid(int d,int m,int y)
 }
 int getDays(int d, int m, int y)
 {
-	int month[] = { 31, 0, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 }, leap = 0,days,i;
+	int month[] = { 31, 0, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 }, leap = 0,days=365,i;
 	if (y % 4 == 0)
 	{
 		days = 366;
