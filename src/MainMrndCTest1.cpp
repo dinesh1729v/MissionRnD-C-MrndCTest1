@@ -77,7 +77,12 @@ void make_it_circular(struct node *head){
 int main(){
 
 	//Test Sequences
-
+	int input[10] = { 1, 3, 5, 7, 2, 4, 8, 16 ,18, 20 };
+	int *arr;
+	arr = find_sequences(input,10);
+	for (int i = 0; i < 6; i++)
+		printf("%d ", arr[i]);
+	getchar();
 	//Test Circular Linked Lists
 
     //Test Between Days

@@ -30,8 +30,60 @@ Difficulty : Medium
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
+int* detectAp(int *a, int len,int start)
+{
+	int ans[2] = {-1,-1},i;
+	for (i = start; i < len - 2; i++)
+	{
+		if (((a[i + 1] - a[i]) == (a[i + 2] - a[i + 1]))&&ans[0]==-1) ans[0] = i;
+		if (((a[i + 1] - a[i]) == (a[i + 2] - a[i + 1])))continue;
+		else if (ans[0] != -1){
+			ans[1] = i+1;
+			break;
+		}
+	}
+	if (i == len - 2)
+		if ((a[i] - a[i - 1]) == (a[i + 1] - a[i]))ans[1]=i + 1;
+	return ans;
+}
 
+int *detectGp(int *a, int len)
+{
+	int i,ans[2] = {-1,-1};
+	float diff1, diff2;
+	for (i = 0; i < len - 2; i++)
+	{
+		diff1 = (a[i + 1] * 1.0 / a[i]);
+		diff2 = (a[i + 2]*1.0 / a[i + 1]);
+
+		if (diff1 == diff2&&ans[0]==-1)ans[0] = i;
+		if (diff1 == diff2)continue;
+		else if (ans[0] != -1){
+			ans[1] = i+1;
+			break;
+		}
+	}
+	if ((i == len - 2))
+	{
+		diff1 = (a[i] * 1.0 / a[i-1]);
+		diff2 = (a[i + 1] * 1.0 / a[i]);
+		if (diff1 == diff2)ans[1] = i+1;
+	}
+	return ans;
+}
 int * find_sequences(int *arr, int len){
 	//Return final array which has 6indexes [AP1_S,AP1_E,AP2_S,AP2_E,GP1_S,GP2_E]
-	return NULL;
+	if (arr == NULL || len <= 0)return NULL;
+	int *seIndex;
+	int *result = (int *)malloc(6*sizeof(int));
+	seIndex = detectAp(arr, len,0);
+	result[0] = seIndex[0];
+	result[1] = seIndex[1];
+	seIndex = detectAp(arr, len,result[1]);
+	result[2] = seIndex[0];
+	result[3] = seIndex[1];
+	seIndex = detectGp(arr, len);
+	result[4] = seIndex[0];
+	result[5] = seIndex[1];
+	return result;
 }
